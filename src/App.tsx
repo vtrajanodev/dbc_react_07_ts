@@ -1,5 +1,5 @@
 import { Header } from "./components/Header/Header";
-import { UserContextProvider } from "./context/ApiContext";
+import { UserContextProvider } from "./context/UserContext";
 import { Home } from "./pages/Home/Home";
 
 export const App = () => {

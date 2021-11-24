@@ -1,34 +1,16 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/ApiContext';
-import api from '../../services/api';
+import { useApi } from '../../hooks/useApi';
 import styles from './home.module.scss'
-
-
-type Repo = {
-  name: string;
-  description: string;
-  url: string;
-}
 
 export const Home = () => {
 
-  const { user } = useContext(UserContext)
-  const [repo, setRepo] = useState<Repo[]>([])
-
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get('https://api.github.com/users/vtrajanodev/repos')
-      setRepo(response.data)
-    })()
-  }, [])
-
+  const { user, repo } = useApi()
+  
   return (
     <main>
       {user?.map((user, index) => (
         <div key={index}>
           <div className="container">
-            <div className={styles.home}>
+            <div>
               <div className={styles.profilePicture}>
                 <img src={user.avatar_url} alt="foto perfil" />
               </div>
@@ -44,15 +26,17 @@ export const Home = () => {
         </div>
       ))}
       <h2>Repositórios:</h2>
-      {repo.map((repo, index) => (
-        <div className={styles.repos} key={index}>
-          <div className={styles.repoCard}>
-            <h4>{repo.name}</h4>
-            <p>{repo.description}</p>
-            <a href={repo.url}>Acesse o repositório no github</a>
+      <div className={styles.repos}>
+        {repo.map((repo, index) => (
+          <div key={index}>
+            <div className={styles.repoCard}>
+              <h4>{repo.name}</h4>
+              <p>{repo.description}</p>
+              <a href={repo.html_url}>Acesse o repositório no github</a>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </main>
   );
 }
