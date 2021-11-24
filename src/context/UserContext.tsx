@@ -26,8 +26,6 @@ interface Repo {
   html_url: string;
 }
 
-
-
 export const UserContext = createContext<UserContextType>({} as UserContextType)
 
 export function UserContextProvider({ children }: UserContextProviderProps) {
