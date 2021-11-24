@@ -3,7 +3,7 @@ import axios from 'axios';
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import api from '../services/api'
 
-type User = {
+interface User {
   login: string;
   avatar_url: string;
   name: string;
@@ -12,11 +12,11 @@ type User = {
   id: number;
 }
 
-type UserContextType = {
+interface UserContextType {
   user: User[] | undefined;
 }
 
-type UserContextProviderProps = {
+interface UserContextProviderProps  {
   children: ReactNode;
 }
 
