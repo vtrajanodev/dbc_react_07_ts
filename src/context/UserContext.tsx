@@ -12,15 +12,15 @@ interface User {
 }
 
 interface UserContextType {
-  user: User[] | undefined;
-  repo: Repo[]
+  user: User[];
+  repo: Repo[];
 }
 
-interface UserContextProviderProps  {
+interface UserContextProviderProps {
   children: ReactNode;
 }
 
-interface Repo  {
+interface Repo {
   name: string;
   description: string;
   html_url: string;
@@ -32,16 +32,8 @@ export const UserContext = createContext<UserContextType>({} as UserContextType)
 
 export function UserContextProvider({ children }: UserContextProviderProps) {
 
-  const [user, setUser] = useState<User[]>([])
-
-  const [repo, setRepo] = useState<Repo[]>([])
-
-  useEffect(() => {
-    (async () => {
-      const response = await api.get('/vtrajanodev/repos')
-      setRepo(response.data)
-    })()
-  }, [])
+  const [user, setUser] = useState<User[]>([]);
+  const [repo, setRepo] = useState<Repo[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -54,6 +46,13 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
         id: res.data.id,
         avatar_url: res.data.avatar_url
       }])
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get('/vtrajanodev/repos')
+      setRepo(response.data)
     })()
   }, [])
 
