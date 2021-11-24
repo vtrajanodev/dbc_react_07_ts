@@ -17,7 +17,7 @@ export const About = () => {
 
               <div className={styles.sobre}>
                 <h1>{user.name}</h1>
-                <h3>{user.login}</h3>
+                <h3>@{user.login}</h3>
                 <p>{user.bio}</p>
               </div>
             </div>
