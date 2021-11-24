@@ -1,27 +1,10 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/ApiContext';
+import { useApi } from '../../hooks/useApi';
 import styles from './home.module.scss'
-
-
-interface Repo  {
-  name: string;
-  description: string;
-  html_url: string;
-}
 
 export const Home = () => {
 
-  const { user } = useContext(UserContext)
-  const [repo, setRepo] = useState<Repo[]>([])
-
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get('https://api.github.com/users/vtrajanodev/repos')
-      setRepo(response.data)
-    })()
-  }, [])
-
+  const { user, repo } = useApi()
+  
   return (
     <main>
       {user?.map((user, index) => (

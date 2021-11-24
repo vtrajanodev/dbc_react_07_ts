@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import api from '../services/api'
 
@@ -14,11 +13,20 @@ interface User {
 
 interface UserContextType {
   user: User[] | undefined;
+  repo: Repo[]
 }
 
 interface UserContextProviderProps  {
   children: ReactNode;
 }
+
+interface Repo  {
+  name: string;
+  description: string;
+  html_url: string;
+}
+
+
 
 export const UserContext = createContext<UserContextType>({} as UserContextType)
 
@@ -26,9 +34,18 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
 
   const [user, setUser] = useState<User[]>([])
 
+  const [repo, setRepo] = useState<Repo[]>([])
+
   useEffect(() => {
     (async () => {
-      const res = await api.get('/users/vtrajanodev')
+      const response = await api.get('/vtrajanodev/repos')
+      setRepo(response.data)
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      const res = await api.get('/vtrajanodev')
       setUser([...user, {
         login: res.data.login,
         name: res.data.name,
@@ -41,7 +58,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   }, [])
 
   return (
-    <UserContext.Provider value={{ user }}>
+    <UserContext.Provider value={{ user, repo }}>
       {children}
     </UserContext.Provider>
   )
