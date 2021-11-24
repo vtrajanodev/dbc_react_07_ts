@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import logo from '../../assets/github4.png'
 import styles from './header.module.scss'
 
 export const Header = () => {
   return (
     <header className={styles.header}>
       <div>
-        logo
+        <img src={logo} alt="logo github" />
       </div>
 
       <nav>
