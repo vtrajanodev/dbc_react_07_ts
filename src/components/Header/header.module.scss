@@ -1,0 +1,27 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: var(--gray-10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    margin-left: 3rem;
+  }
+
+  nav {
+    margin-right: 3rem;
+  }
+
+  li {
+    display: inline;
+    margin-right: 3rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  
+}
